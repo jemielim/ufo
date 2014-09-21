@@ -1,30 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <meta charset="utf-8">
         <title>D3 Test</title>
+        <script type="text/javascript" src="d3/d3.v3.js"></script>
+        <script src="http://d3js.org/topojson.v1.min.js"></script>
         <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+        <script src="/datamaps.all.min.js"></script>
+<div id="container" style="position: relative;width: 1000 px"></div>
     </head>
     <body>
+        <script type="text/javascript">
+var map = new Datamap({
+        element: document.getElementById('container'),
+        scope: 'usa',
+        height: 600,
+        geographyConfig: {
+        popupOnHover: false,
+        highlightOnHover: true
+       },
 
-<script>
+    fills: {
+        'USA': '#1f77b4',
+        'RUS': '#9467bd',
+        'PRK': '#ff7f0e',
+        'PRC': '#2ca02c',
+        'IND': '#e377c2',
+        'GBR': '#8c564b',
+        'FRA': '#d62728',
+        'PAK': '#7f7f7f',
+        defaultFill: '#7f7f7f'
+    },
+    data: {
+        'RUS': {fillKey: 'RUS'},
+        'PRK': {fillKey: 'PRK'},
+        'PRC': {fillKey: 'PRC'},
+        'IND': {fillKey: 'IND'},
+        'GBR': {fillKey: 'GBR'},
+        'FRA': {fillKey: 'FRA'},
+        'PAK': {fillKey: 'PAK'},
+        'USA': {fillKey: 'PAK'}
+    }
+
+    });
 
 
-d3.json("data.json", function (data) {
-  var canvas = d3.select("body").append("svg")
-         .attr("width", 500)
-         .attr("height", 500)
-        canvas.selectAll("rect")
-             .data(data)
-             .enter()
-              .append("rect")
-              .attr("width", function (d) { return d * 10; })
-              .attrr("height", 50)
-              .attr("fill", "blue")
-              .attr("y", function (d, i) { return i * 50; })
 
+//map.bigBubble();
+var ufoList = [{"latitude": 28.1511243, "description": "Fireballs.", "city": "Lutz", "state": "FL", "shape": "Fireball", "date": "6/1/14 09:00", "longitude": -82.4614831, "duration": "10 minutes"}, {"latitude": 41.2959908, "description": "IT WAS NOT SOMETHING OF THIS EARTH NOT MAN MADE FLYS AROUND LIKE THIS THING DID", "city": "Madison", "state": "CT", "shape": "Circle", "date": "3/29/17 05:30", "longitude": -72.5754149, "duration": "10 minutes"}, {"latitude": 30.4582829, "description": "UFO report communicated by Thomas Jefferson", "city": "Baton Rouge", "state": "LA", "shape": "Light", "date": "4/5/00 20:00", "longitude": -91.1403196, "duration": "15 seconds"}, {"latitude": 35.4770574, "description": "meteor or fireball passage", "city": "Cherokee", "state": "NC", "shape": "Fireball", "date": "8/2/60 23:00", "longitude": -83.3205859, "duration": "less than a minute?"}, {"latitude": 40.790278, "description": "Strange, cross-shaped, object witnessed over NYC in 1861.", "city": "New York City (Manhattan)", "state": "NY", "shape": "Cross", "date": "3/29/61 00:00", "longitude": -73.959722, "duration": "unknown"}, {"latitude": 34.0561633, "description": "In 1864, prior to airplanes, a white object was observed about half a mile high and moving rapidly toward the south.", "city": "Cave Springs", "state": "GA", "shape": "Unknown", "date": "5/16/64 08:00", "longitude": -85.2963498, "duration": "?"}, {"latitude": 47.0993879, "description": "1865 Cadotte Pass, Montana UFO crash", "city": "Cadotte Pass", "state": "MT", "shape": "", "date": "6/30/65 00:00", "longitude": -112.393634, "duration": ""}, {"latitude": 44.5988847, "description": "Old photos from 1871 show what appears to be objects in the air.", "city": "Yellowstone National Park", "state": "WY", "shape": "Egg", "date": "6/30/71 14:00", "longitude": -110.4998981, "duration": "not known"}, {"latitude": 48.74908, "description": "UFO caused earthquakes?", "city": "Bellingham", "state": "WA", "shape": "Fireball", "date": "12/12/80 20:40", "longitude": -122.4781473, "duration": "Unknown"}, {"latitude": 33.0606784, "description": "Slow moving cigar shaped airship crashed in Aurora, Texas", "city": "Aurora", "state": "TX", "shape": "Cigar", "date": "4/17/97 06:00", "longitude": -97.50335609999999, "duration": "5 minutes"}, {"latitude": 39.3583539, "description": "Bizarre lights seen by dozens of people six miles north of Carrollton, Missouri.", "city": "Carrollton", "state": "MO", "shape": "Sphere", "date": "6/30/99 07:00", "longitude": -93.4957675, "duration": "one hour"}, {"latitude": 35.3732921, "description": "One night, at 3am, I witnessed a disc hovering in the sky, and a giant flash erupted and it sped, disappeared at the speed of light.", "city": "Bakersfield", "state": "CA", "shape": "Disk", "date": "6/30/05 03:15", "longitude": -119.0187125, "duration": "5 seconds"}, {"latitude": 45.5234515, "description": "Historical UFO sighting--July 1905.", "city": "Portland", "state": "OR", "shape": "Sphere", "date": "7/6/05 20:30", "longitude": -122.6762071, "duration": "1 hour"}, {"latitude": 40.19475389999999, "description": "Historical sighting (1903 - 1913) Northern Missouri", "city": "Kirksville (near)", "state": "MO", "shape": "Disk", "date": "1/1/10", "longitude": -92.5832496, "duration": "Minutes"}, {"latitude": 44.949502, "description": "entry in my great-grandmother's diary,date 28 may 1910,refers to watching the comet zig-zaging in the sky, followed by a zig-zag diagra", "city": "Solon", "state": "ME", "shape": "Unknown", "date": "5/28/10 21:00", "longitude": -69.85839100000001, "duration": "don't know"}, {"latitude": 32.7092955, "description": "Cigar shaped object moving from West to East", "city": "Wills Point", "state": "TX", "shape": "Cigar", "date": "6/1/10 15:00", "longitude": -96.0083018, "duration": "2 minutes"}, {"latitude": 44.81911299999999, "description": "Multiple sightings reported in rural Montana from the early 20th Century.", "city": "Mussell County", "state": "MT", "shape": "", "date": "6/15/20", "longitude": -109.5262775, "duration": ""}, {"latitude": 40.1239257, "description": "((NUFORC Note:  Probable hoax.  Note date.  PD))  Strange gathering of objects in the sky.", "city": "Cicero", "state": "IN", "shape": "Unknown", "date": "6/11/20 21:00", "longitude": -86.01331809999999, "duration": "1 minute"}, {"latitude": 35.7595731, "description": "It was hazy.", "city": "", "state": "NC", "shape": "Unknown", "date": "12/22/22 00:00", "longitude": -79.01929969999999, "duration": ""}, {"latitude": 40.6331249, "description": "Young boy witnesses disc in sky above Illinois farmland in December 1925.", "city": "Atkinson (6 miles north of)", "state": "IL", "shape": "Disk", "date": "12/28/25 18:00", "longitude": -89.3985283, "duration": "1 minute"}, {"latitude": 43.5189107, "description": "we were traveling east of burns,clmbing up thru a cut in the rim rocks when this object very slowely flew over the top of us, some 50 f", "city": "Buchanan  (or Burns)", "state": "OR", "shape": "Disk", "date": "7/5/29 14:00", "longitude": -118.5893227, "duration": "1min"}, {"latitude": 40.02795, "description": "This isn't my encounter, it's my mother's when she was living in willingboro with her family. i dont know how old she was or how long a", "city": "Willingboro", "state": "NJ", "shape": "Other", "date": "6/30/30 20:00", "longitude": -74.886984, "duration": ""}, {"latitude": 42.5139608, "description": "Very Large Triangle Shapped Object", "city": "Ithaca/Freeville", "state": "NY", "shape": "Triangle", "date": "6/1/30 22:00", "longitude": -76.3466014, "duration": "20 mins"}, {"latitude": 42.2042586, "description": "In the winter of 1931, I saw a flying machine (UFO) as I was riding on a horse in the draw of a pasture.", "city": "Holyoke (6-8 miles southwest of)", "state": "CO", "shape": "Oval", "date": "2/15/31 14:00", "longitude": -72.6162009, "duration": "1minute"}];
+
+JSON.stringify(ufoList);
+
+
+
+for (var i in ufoList)
+{
+ufoList[i].fillKey = 'RUS';
+ufoList[i].radius = 3;
+}
+
+map.bubbles(ufoList,
+ {
+  popupTemplate: function(geo, data) {
+    return '<div class="hoverinfo"><ul><li> Date: ' + String(data.date) + '</li><li> Shape: ' + data.shape + '</li><li>Duration: ' +data.duration + '</li><li> Description: ' + data.name + '</li></ul> </div>'
+  }
 })
 
-
+  //   popupTemplate: function(geo, data) {
+   // return '<div class="hoverinfo">Date: ' + data.date +  ' Duration: ' + data.duration + ' Description: '  + data.name + '</div>'
+  //}
+    
 </script>
     </body>
-</html> 
+</html>
+
+
+   
